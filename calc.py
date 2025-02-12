@@ -9,6 +9,7 @@ from PyQt6.QtWidgets import (
     QPushButton,
     QVBoxLayout,
     QWidget,
+    QTest,
 )
 
 ERROR_MSG = "ERROR"
@@ -130,3 +131,35 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+def test_addition():
+    window = PyCalcWindow()
+    window.show()
+    QTest.keyclicks(window.display, "2+2")
+    QTest.keyclick(window.buttonMap["="], Qt.Key.Key_Return)
+    assert window.displayText() == "4"
+
+
+def test_subtraction():
+    window = PyCalcWindow()
+    window.show()
+    QTest.keyclicks(window.display, "5-3")
+    QTest.keyclick(window.buttonMap["-"], Qt.Key.Key_Return)
+    assert window.displayText() == "2"
+
+
+def test_multiplication():
+    window = PyCalcWindow()
+    window.show()
+    QTest.keyclicks(window.display, "4*3")
+    QTest.keyClick(window.buttonMap["="], Qt.Key.Key_Return)
+    assert window.displayText() == "12"
+
+
+def test_division():
+    window = PyCalcWindow()
+    window.show()
+    QTest.keyclicks(window.display, "10/2")
+    QTest.keyClick(window.buttonMap["="], Qt.Key.Key_Return)
+    assert window.displayText() == "5.0"
